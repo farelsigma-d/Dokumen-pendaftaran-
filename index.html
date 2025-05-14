@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Turnamen ML</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white p-6 rounded-2xl shadow-lg max-w-xl w-full">
+    <h1 class="text-2xl font-bold mb-4 text-center">Form Pendaftaran Turnamen ML</h1>
+    <form id="ml-form" class="space-y-4">
+      <div>
+        <label class="block font-semibold">Nama Tim</label>
+        <input type="text" name="team" class="w-full p-2 border rounded-xl" placeholder="Masukkan nama tim" required>
+      </div>
+      
+      <h2 class="text-lg font-semibold mt-4">Data Pemain</h2>
+      <div class="grid grid-cols-1 gap-4">
+        <div>
+          <label class="block font-medium">Pemain 1</label>
+          <input type="text" name="pemain1" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain" required>
+          <input type="text" name="id1" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML" required>
+        </div>
+        <div>
+          <label class="block font-medium">Pemain 2</label>
+          <input type="text" name="pemain2" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain" required>
+          <input type="text" name="id2" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML" required>
+        </div>
+        <div>
+          <label class="block font-medium">Pemain 3</label>
+          <input type="text" name="pemain3" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain" required>
+          <input type="text" name="id3" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML" required>
+        </div>
+        <div>
+          <label class="block font-medium">Pemain 4</label>
+          <input type="text" name="pemain4" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain" required>
+          <input type="text" name="id4" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML" required>
+        </div>
+        <div>
+          <label class="block font-medium">Pemain 5</label>
+          <input type="text" name="pemain5" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain" required>
+          <input type="text" name="id5" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML" required>
+        </div>
+
+        <div>
+          <label class="block font-medium text-blue-600">Cadangan</label>
+          <input type="text" name="cadangan" class="w-full p-2 border rounded-xl" placeholder="Nama Pemain Cadangan" required>
+          <input type="text" name="id_cadangan" class="w-full mt-1 p-2 border rounded-xl" placeholder="ID ML Cadangan" required>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <label class="block font-semibold">Rules</label>
+        <ul class="list-disc list-inside text-sm text-gray-700">
+          <li>Tidak boleh menggunakan cheat dalam bentuk apa pun</li>
+          <li>Semua ID ML harus valid dan aktif</li>
+          <li>Tidak boleh mengganti pemain tanpa izin panitia</li>
+        </ul>
+      </div>
+
+      <button type="submit" class="w-full bg-green-600 text-white p-2 rounded-xl hover:bg-green-700">Kirim ke Admin WhatsApp</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("ml-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const form = new FormData(this);
+      const adminNumber = "6281917195918"; // Ganti dengan nomor admin (pakai format internasional tanpa +)
+      let message = `*Pendaftaran Turnamen ML*\n\n`;
+      message += `*Nama Tim:* ${form.get("team")}\n`;
+      for (let i = 1; i <= 5; i++) {
+        message += `*Pemain ${i}:* ${form.get(`pemain${i}`)} (ID: ${form.get(`id${i}`)})\n`;
+      }
+      message += `*Cadangan:* ${form.get("cadangan")} (ID: ${form.get("id_cadangan")})\n\n`;
+      message += `*Rules Disetujui:* Tidak menggunakan cheat ✅`;
+
+      const url = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
